@@ -1,9 +1,11 @@
-import React, { ChangeEvent, useState } from "react";
+import { nanoid } from "nanoid";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 
 // type
 type Props = {};
 
 type Tasks = {
+  id: string;
   label: string;
 };
 
@@ -16,9 +18,25 @@ const List: React.FC<Props> = () => {
     console.log(e.target.value);
   };
 
+  const handleNewTakskKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setTasks((tasks) => [...tasks, { id: nanoid(), label: newTaskLabel }]);
+    }
+  };
+
   return (
     <div>
-      <input value={newTaskLabel} onChange={handleNewTasksLableChange} />
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>{task.label}</li>
+        ))}
+      </ul>
+
+      <input
+        value={newTaskLabel}
+        onChange={handleNewTasksLableChange}
+        onKeyUp={handleNewTakskKeyUp}
+      />
     </div>
   );
 };
