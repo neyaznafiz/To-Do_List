@@ -15,11 +15,10 @@ const List: React.FC<Props> = () => {
 
   const handleNewTasksLableChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTaskLabel(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleNewTakskKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && newTaskLabel !== '') {
       setTasks((tasks) => [...tasks, { id: nanoid(), label: newTaskLabel }]);
     }
   };
