@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Focus = () => {
+
+// type
+type Props ={}
+
+const Focus: React.FC<Props>  = () => {
     return (
         <div>
             Focus
