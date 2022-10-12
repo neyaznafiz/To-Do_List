@@ -1,15 +1,10 @@
-import React from 'react';
+import React from "react";
+import { Props } from "../Types/types";
 
+const Focus: React.FC<Props> = ({ tasks }) => {
+  const task = tasks[0];
 
-// type
-type Props ={}
-
-const Focus: React.FC<Props>  = () => {
-    return (
-        <div>
-            Focus
-        </div>
-    );
+    return task ? <div>{ task.label}</div> : <div>No Task !</div>;
 };
 
 export default Focus;

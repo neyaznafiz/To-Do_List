@@ -1,15 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { Route, Routes, NavLink } from "react-router-dom";
 import Focus from "./Pages/Focus";
 import List from "./Pages/List";
-import useState from 'react';
+import { Task } from "./Types/types";
 
 function App() {
   let activeStyle = {
     fontWeight: "bold",
   };
 
-  // const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const tasksProps = {tasks, setTasks}
 
   return (
     <div>
@@ -32,8 +33,8 @@ function App() {
       </div>
 
       <Routes>
-        <Route path="/" element={<List />} />
-        <Route path="/focus" element={<Focus />} />
+        <Route path="/" element={<List {...tasksProps} />} />
+        <Route path="/focus" element={<Focus {...tasksProps} />} />
       </Routes>
     </div>
   );

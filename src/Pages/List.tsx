@@ -1,18 +1,11 @@
 import { nanoid } from "nanoid";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import { Props, Task, TasksProps } from "../Types/types";
 
-// type
-type Props = {};
 
-type Task = {
-  id: string;
-  label: string;
-  isComplete: boolean;
-};
-// ----------------------------------------------------
 
-const List: React.FC<Props> = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+const List: React.FC<Props> = ({ tasks, setTasks }) => {
+  // const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskLabel, setNewTaskLabel] = useState("");
 
   // get value from input function
@@ -57,7 +50,7 @@ const List: React.FC<Props> = () => {
     setTasks((tasks) => tasks.filter((task) => task.id !== handledTask.id));
   };
 
- // ----------------------------------------------------
+  // ----------------------------------------------------
   return (
     <div>
       <div>
