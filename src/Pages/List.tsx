@@ -9,17 +9,18 @@ type Task = {
   label: string;
   isComplete: boolean;
 };
+// ----------------------------------------------------
 
 const List: React.FC<Props> = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskLabel, setNewTaskLabel] = useState("");
 
-  //
+  // get value from input function
   const handleNewTasksLableChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTaskLabel(e.target.value);
   };
 
-  //
+  // add task with enter key
   const handleNewTakskKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && newTaskLabel !== "") {
       setTasks((tasks) => [
@@ -30,11 +31,13 @@ const List: React.FC<Props> = () => {
           isComplete: false,
         },
       ]);
+      setNewTaskLabel("");
+      setNewTaskLabel("");
     }
   };
 
-  //
-  const handleCompleteChange =
+  // conplete task change (radio click)
+  const handleCompleteTaskChange =
     (handleTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
       setTasks((tasks) =>
         tasks.map((task) => {
@@ -45,9 +48,16 @@ const List: React.FC<Props> = () => {
       );
     };
 
-  const handleClearClick = () =>
+  // clear complete task
+  const handleCompleteTasksClear = () =>
     setTasks((tasks) => tasks.filter((task) => !task.isComplete));
 
+  // delete task
+  const handleTaskDelete = (handledTask: Task) => () => {
+    setTasks((tasks) => tasks.filter((task) => task.id !== handledTask.id));
+  };
+
+ // ----------------------------------------------------
   return (
     <div>
       <div>
@@ -56,9 +66,10 @@ const List: React.FC<Props> = () => {
             <input
               type="checkbox"
               checked={task.isComplete}
-              onChange={handleCompleteChange(task)}
+              onChange={handleCompleteTaskChange(task)}
             />
             {task.label}
+            <button onClick={handleTaskDelete(task)}>Delete</button>
           </div>
         ))}
       </div>
@@ -70,7 +81,7 @@ const List: React.FC<Props> = () => {
       />
 
       <div>
-        <button onClick={handleClearClick}>Clear Completed</button>
+        <button onClick={handleCompleteTasksClear}>Clear Completed</button>
       </div>
     </div>
   );
