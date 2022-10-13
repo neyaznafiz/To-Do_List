@@ -1,8 +1,8 @@
-import { nanoid } from "nanoid";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { Props, Task, TasksProps } from "../Types/types";
 
-const List: React.FC<Props> = ({ tasks, setTasks, updateTaskCompletion }) => {
+const List: React.FC<Props> = ({ tasks, setTasks, updateTaskCompletion, addTask }) => {
+
   const [newTaskLabel, setNewTaskLabel] = useState("");
 
   // get value from input function
@@ -13,14 +13,7 @@ const List: React.FC<Props> = ({ tasks, setTasks, updateTaskCompletion }) => {
   // add task with enter key
   const handleNewTakskKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && newTaskLabel !== "") {
-      setTasks((tasks) => [
-        ...tasks,
-        {
-          id: nanoid(),
-          label: newTaskLabel,
-          isComplete: false,
-        },
-      ]);
+     addTask({label: newTaskLabel})
       setNewTaskLabel("");
     }
   };
