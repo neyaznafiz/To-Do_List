@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Route, Routes, NavLink } from "react-router-dom";
 import Focus from "./Pages/Focus";
 import List from "./Pages/List";
@@ -10,7 +10,17 @@ function App() {
   };
 
   const [tasks, setTasks] = useState<Task[]>([]);
-  const tasksProps = {tasks, setTasks}
+
+  const updateTaskCompletion = (taskId: string, isComplete: boolean) => {
+    setTasks((tasks) =>
+      tasks.map((task) => {
+        if (task.id === taskId) return { ...task, isComplete };
+        return task;
+      })
+    );
+  };
+
+  const tasksApi = { tasks, setTasks, updateTaskCompletion };
 
   return (
     <div>
@@ -33,8 +43,8 @@ function App() {
       </div>
 
       <Routes>
-        <Route path="/" element={<List {...tasksProps} />} />
-        <Route path="/focus" element={<Focus {...tasksProps} />} />
+        <Route path="/" element={<List {...tasksApi} />} />
+        <Route path="/focus" element={<Focus {...tasksApi} />} />
       </Routes>
     </div>
   );

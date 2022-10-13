@@ -2,10 +2,7 @@ import { nanoid } from "nanoid";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { Props, Task, TasksProps } from "../Types/types";
 
-
-
-const List: React.FC<Props> = ({ tasks, setTasks }) => {
-  // const [tasks, setTasks] = useState<Task[]>([]);
+const List: React.FC<Props> = ({ tasks, setTasks, updateTaskCompletion }) => {
   const [newTaskLabel, setNewTaskLabel] = useState("");
 
   // get value from input function
@@ -25,20 +22,13 @@ const List: React.FC<Props> = ({ tasks, setTasks }) => {
         },
       ]);
       setNewTaskLabel("");
-      setNewTaskLabel("");
     }
   };
 
   // conplete task change (radio click)
   const handleCompleteTaskChange =
-    (handleTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
-      setTasks((tasks) =>
-        tasks.map((task) => {
-          if (task.id === handleTask.id)
-            return { ...task, isComplete: e.target.checked };
-          return task;
-        })
-      );
+    (task: Task) => (e: ChangeEvent<HTMLInputElement>) => {
+      updateTaskCompletion(task.id, e.target.checked);
     };
 
   // clear complete task
